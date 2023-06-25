@@ -1,0 +1,31 @@
+{
+    "name": "homebridge-audio-stream",
+    "version": "1.0.0",
+    "description": "play audio streams and control them over homebridge",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "homebridge",
+        "homebridge-plugin",
+        "webradio",
+        "radio",
+        "audio",
+        "player",
+        "stream"
+    ],
+    "author": "Michael Reiniger, Francesco Kriegel, Hjalti Skulason",
+    "license": "MIT",
+    "engines": {
+        "node": ">=7.6.0",
+        "homebridge": ">=0.4.0"
+    },
+    "dependencies": {
+        "@dnaf/node-ffplay": ">=1.1.0"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/Hskul/homebridge-audio-stream.git"
+    }
+}
