@@ -1,0 +1,30 @@
+{
+    "bridge": {
+        "name": "Homebridge",
+        "username": "00:00:00:00:00:00",
+        "port": 00000,
+        "pin": "000-00-000"
+    },
+    "accessories": [
+        {
+            "accessory": "AudioStream",
+            "name": "Web Radio",
+            "stations": [
+                 {
+                    "name": "WHYY Philadelphia",
+                    "streamUrl": "https://whyy.streamguys1.com/whyy-mp3"
+                },
+                {
+                    "name": "MPR News",
+                    "streamUrl": "https://nis.stream.publicradio.org/nis.mp3"
+                },
+                {
+                    "name": "London Hits",
+                    "streamUrl": "http://tx.planetradio.co.uk/icecast.php?i=net1london.mp3"
+                }
+            ],
+            "delay": 100,
+            "reconnectAfter": 45
+        }
+    ]
+}
