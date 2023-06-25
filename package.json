@@ -22,7 +22,7 @@
         "homebridge": ">=0.4.0"
     },
     "dependencies": {
-        "dnaf/node-ffplay":
+        "dnaf/node-ffplay": ">=1.0.0"
     },
     "repository": {
         "type": "git",
