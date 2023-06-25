@@ -7,11 +7,11 @@ module.exports = function (homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
   //homebridge.registerAccessory('homebridge-radio-player-plus', 'RadioPlayerPlus', RadioPlayerPlusPlugin);
-  homebridge.registerAccessory('homebridge-audio-streamer', 'AudioStreamer', AudioStreamerPlugin);
+  homebridge.registerAccessory('homebridge-audio-stream', 'AudioStream', AudioStreamPlugin);
 }
 
 //class RadioPlayerPlusPlugin {
-class AudioStreamerPlugin {
+class AudioStreamPlugin {
 
   constructor(log, config) {
     this.log = log;
