@@ -1,5 +1,6 @@
 //const Player = require('./player');
-var FFplay = require("ffplay");
+//var FFplay = require("ffplay");
+var mpc = require('./mpc.js');
 
 let Service, Characteristic;
 
@@ -7,22 +8,23 @@ module.exports = function (homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
   //homebridge.registerAccessory('homebridge-radio-player-plus', 'RadioPlayerPlus', RadioPlayerPlusPlugin);
-  homebridge.registerAccessory('homebridge-audio-stream', 'AudioStream', AudioStreamPlugin);
+  homebridge.registerAccessory('homebridge-audio-streamer', 'AudioStreamer', AudioStreamerPlugin);
 }
 
 //class RadioPlayerPlusPlugin {
-class AudioStreamPlugin {
+class AudioStreamerPlugin {
 
   constructor(log, config) {
     this.log = log;
     this.activeStation = -1;
     // stations here is a array of station information
     this.stations = config.stations;
-    this.delay = Number(config.delay) || 100;
-    this.reconnectAfter = Number(config.reconnectAfter) || 45;
-    // We can't create this player here, we create it when we play
-    //this.player = new Player(this.log, this.reconnectAfter * 60000);
+    // Don't need this because mpc takes care of this?
+    //this.delay = Number(config.delay) || 100;
+    //this.reconnectAfter = Number(config.reconnectAfter) || 45;
 
+    // Just 'creating' the player with no url associated
+    this.player = new mpc("");
     this.informationService = new Service.AccessoryInformation();
     this.informationService
       .setCharacteristic(
@@ -77,14 +79,15 @@ class AudioStreamPlugin {
   }
 
 
-  // This should where we start the streaming
+  // Play the station
   play() {
     if (this.activeStation != -1) {
       const station = this.stations[this.activeStation];
       this.log.info('Starting web radio "' + station.name + '" (' + station.streamUrl + ')');
-      //this.player.play(station.streamUrl);
-      var fplayer = new FFplay(station.streamUrl); // Starts ffplay playing the identified stream
-      // It runs `ffplay` with the options `-nodisp` and `-autoexit` by default
+      this.log.info('with volume ' + station.volume);
+      this.player.seturl(station.streamUrl);
+      this.player.setVolume(station.volume);
+      this.player.play();
       this.stationServices[this.activeStation].getCharacteristic(Characteristic.On).updateValue(true);
     }
   }
@@ -96,8 +99,7 @@ class AudioStreamPlugin {
       const station = this.stations[this.activeStation];
       this.log.info('Stopping web radio "' + station.name + '" (' + station.streamUrl + ')');
     }
-    //this.player.stop();
-    fplayer.stop(); // Stops playback.  What is the proper callback?
+    this.player.stop();
     for (var n in this.stations) {
       this.stationServices[n].getCharacteristic(Characteristic.On).updateValue(false);
     }
