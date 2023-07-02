@@ -1,6 +1,6 @@
 # homebridge-audio-stream
 
-Attempt to modify Homebridge-radio-player-plus to work with node-ffplay 
+Attempt to modify Homebridge-radio-player-plus to work with mpc/mpd 
 due to the error that crashes homebridge when audio stream is stopped
 (apparently a node issue) for Radio Player Plus
 
