@@ -15,14 +15,13 @@
         "player",
         "stream"
     ],
-    "author": "Michael Reiniger, Francesco Kriegel, Hjalti Skulason",
+    "author": "Michael Reiniger, Francesco Kriegel,stephan-01010011, Hjalti Skulason",
     "license": "MIT",
     "engines": {
         "node": ">=7.6.0",
         "homebridge": ">=0.4.0"
     },
     "dependencies": {
-        "dnaf/node-ffplay": ">=1.0.0"
     },
     "repository": {
         "type": "git",
