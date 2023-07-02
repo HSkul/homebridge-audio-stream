@@ -12,19 +12,20 @@
             "stations": [
                  {
                     "name": "WHYY Philadelphia",
-                    "streamUrl": "https://whyy.streamguys1.com/whyy-mp3"
+                    "streamUrl": "https://whyy.streamguys1.com/whyy-mp3",
+                     "volume": 87
                 },
                 {
                     "name": "MPR News",
-                    "streamUrl": "https://nis.stream.publicradio.org/nis.mp3"
+                    "streamUrl": "https://nis.stream.publicradio.org/nis.mp3",
+                    "volume": 87
                 },
                 {
                     "name": "London Hits",
-                    "streamUrl": "http://tx.planetradio.co.uk/icecast.php?i=net1london.mp3"
+                    "streamUrl": "http://tx.planetradio.co.uk/icecast.php?i=net1london.mp3",
+                    "volume": 87
                 }
             ],
-            "delay": 100,
-            "reconnectAfter": 45
         }
     ]
 }
