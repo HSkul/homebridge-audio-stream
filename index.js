@@ -1,6 +1,6 @@
 //const Player = require('./player');
 //var FFplay = require("ffplay");
-var mpc = require('./mpc.js');
+const Player = require('./player');
 
 let Service, Characteristic;
 
@@ -22,9 +22,9 @@ class AudioStreamPlugin {
     // Don't need this because mpc takes care of this?
     //this.delay = Number(config.delay) || 100;
     //this.reconnectAfter = Number(config.reconnectAfter) || 45;
-
+    this.player = new Player(this.log);
     // Just 'creating' the player with no url associated
-    this.player = new mpc("");
+    //this.player = new mpc("");
     this.informationService = new Service.AccessoryInformation();
     this.informationService
       .setCharacteristic(
@@ -88,12 +88,13 @@ class AudioStreamPlugin {
       this.player.seturl(station.streamUrl, function (stdout) {
         callback(null);
       });
-      this.player.setVolume(station.volume, function (stdout) {
+      this.player.setVolume(station.volume, function () {
         callback(null);
       });
       this.player.play(function (stdout) {
         callback(null);
       });
+      //this.player.play(station.streamUrl);
       this.stationServices[this.activeStation].getCharacteristic(Characteristic.On).updateValue(true);
     }
   }
