@@ -8,11 +8,11 @@ module.exports = function (homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
   //homebridge.registerAccessory('homebridge-radio-player-plus', 'RadioPlayerPlus', RadioPlayerPlusPlugin);
-  homebridge.registerAccessory('homebridge-audio-stream', 'AudioStream', AudioStreamPlugin);
+  homebridge.registerAccessory('homebridge-audio-streamer', 'AudioStreamer', AudioStreamerPlugin);
 }
 
 //class RadioPlayerPlusPlugin {
-class AudioStreamPlugin {
+class AudioStreamerPlugin {
 
   constructor(log, config) {
     this.log = log;
@@ -37,7 +37,7 @@ class AudioStreamPlugin {
       )
       .setCharacteristic(
         Characteristic.SerialNumber,
-        'AudioStream_1.0.0'
+        'AudioStreamer_1.0.0'
       );
 
     this.switchService = new Service.Switch('Next Audio Stream', 'next-audio-stream');
@@ -85,9 +85,15 @@ class AudioStreamPlugin {
       const station = this.stations[this.activeStation];
       this.log.info('Starting web radio "' + station.name + '" (' + station.streamUrl + ')');
       this.log.info('with volume ' + station.volume);
-      this.player.seturl(station.streamUrl);
-      this.player.setVolume(station.volume);
-      this.player.play();
+      this.player.seturl(station.streamUrl, function (stdout) {
+        callback(null);
+      });
+      this.player.setVolume(station.volume, function (stdout) {
+        callback(null);
+      });
+      this.player.play(function (stdout) {
+        callback(null);
+      });
       this.stationServices[this.activeStation].getCharacteristic(Characteristic.On).updateValue(true);
     }
   }
@@ -99,7 +105,9 @@ class AudioStreamPlugin {
       const station = this.stations[this.activeStation];
       this.log.info('Stopping web radio "' + station.name + '" (' + station.streamUrl + ')');
     }
-    this.player.stop();
+    this.player.stop(function (stdout) {
+      callback(null);
+    });
     for (var n in this.stations) {
       this.stationServices[n].getCharacteristic(Characteristic.On).updateValue(false);
     }
