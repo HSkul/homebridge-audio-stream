@@ -42,7 +42,7 @@ class Player {
             if(error) {
                 this.log.info('Volume error: ' + stderr)
             };
-            callback(stdout)
+            //callback(stdout)
         });
 
         var cmdply = mpccmd + 'play';
@@ -50,7 +50,7 @@ class Player {
             if(error) {
                 this.log.info('Play error: ' + stderr)
             };
-            callback(stdout)
+            //callback(stdout)
         });
 
         //this.stream = request(streamURL);
@@ -75,7 +75,7 @@ class Player {
             if(error) {
                 this.log.info('Play error: ' + stderr)
             };
-            callback(stdout)
+            //callback(stdout)
         });
         this.isPlaying = false;
     }
