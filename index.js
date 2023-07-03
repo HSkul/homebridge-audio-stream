@@ -85,16 +85,16 @@ class AudioStreamPlugin {
       const station = this.stations[this.activeStation];
       this.log.info('Starting web radio "' + station.name + '" (' + station.streamUrl + ')');
       this.log.info('with volume ' + station.volume);
-      this.player.seturl(station.streamUrl, function (stdout) {
-        callback(null);
-      });
-      this.player.setVolume(station.volume, function () {
-        callback(null);
-      });
-      this.player.play(function (stdout) {
-        callback(null);
-      });
-      //this.player.play(station.streamUrl);
+      //this.player.seturl(station.streamUrl, function (stdout) {
+      //  callback(null);
+      //});
+      //this.player.setVolume(station.volume, function () {
+      //  callback(null);
+      //});
+      //this.player.play(function (stdout) {
+      //  callback(null);
+      //});
+      this.player.play(station.streamUrl, station.volume);
       this.stationServices[this.activeStation].getCharacteristic(Characteristic.On).updateValue(true);
     }
   }
@@ -106,9 +106,10 @@ class AudioStreamPlugin {
       const station = this.stations[this.activeStation];
       this.log.info('Stopping web radio "' + station.name + '" (' + station.streamUrl + ')');
     }
-    this.player.stop(function (stdout) {
-      callback(null);
-    });
+    //this.player.stop(function (stdout) {
+    //  callback(null);
+    //});
+    this.player.stop();
     for (var n in this.stations) {
       this.stationServices[n].getCharacteristic(Characteristic.On).updateValue(false);
     }
