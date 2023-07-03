@@ -16,7 +16,7 @@ class Player {
       //function getRandomInteger(min, max) {
       //  return Math.floor(Math.random() * (max - min + 1)) + min;
       //}
-      const startStream = function(callback) {
+      const startStream = function() {
         this.log.info('Connecting to ' + streamURL);
         // Is this where we just clear the url, set volume, set new url, and start playing
         // We just remove any timeouts
@@ -26,7 +26,7 @@ class Player {
             if(error) {
                 this.log.info('Clear error: ' + stderr)
             };
-            callback(stdout)
+            //callback(stdout)
         });
 
         var cmdadd = mpccmd + 'add ' + streamURL;
@@ -34,7 +34,7 @@ class Player {
             if(error) {
                 this.log.info('Add error: ' + stderr)
             };
-            callback(stdout)
+            //callback(stdout)
         });
 
         var cmdvol = mpccmd + 'volume ' + streamvol;
