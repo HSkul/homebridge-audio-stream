@@ -2,20 +2,17 @@
 
 Derivative of Homebridge-radio-player-plus except it uses mpc/mpd as the player for the audio stream.  The was done because changes in node caused Homebridge to crash when audio stream is stopped for Radio Player Plus.
 
-This is plugin is really a combination of homebrige-radio-player-plus and homebridge-mpc.
+This is plugin is really a combination of homebrige-radio-player-plus and homebridge-mpc (many thanks to the authors of those two plugins).
 
 Configure your favorite radio stations by supplying the stream URLs and volume level (0-100%) in your homebridge config. See the below example config file.
 
-Sound will be streamed to the default audio out or as defined in the mpc config file.
+Sound will be streamed to the default audio out or as defined in the mpd config file.
 
 This has been tested on a Raspberry Pi 1B (audio out) and a Raspberry Pi 4 with a HiFi Berry DAC hat.
 
 ## Installation
-First install mpc/mpd
-```sudo apt install mpc mpd```
-Then edit /etc/mpc.config and uncomment the alsa sound section
-(or the section of the appropriate sound driver you are using).  Then install the plugin using
-Edit /etc/mpc.config and unhash the alsa sound section```npm install -g https://github.com/Hskul/homebridge-audio-stream.git```
+First install mpc/mpd using ```sudo apt install mpc mpd```.  Then edit /etc/mpd.conf and uncomment the audio_output alsa sound section (or the section of the appropriate sound driver you are using).  Then install the plugin using
+```npm install -g https://github.com/Hskul/homebridge-audio-stream.git```
 
 ## Configuration
 ```"accessories": [
