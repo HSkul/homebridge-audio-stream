@@ -1,5 +1,3 @@
-//const Player = require('./player');
-//var FFplay = require("ffplay");
 const Player = require('./player');
 
 let Service, Characteristic;
@@ -7,11 +5,9 @@ let Service, Characteristic;
 module.exports = function (homebridge) {
   Service = homebridge.hap.Service;
   Characteristic = homebridge.hap.Characteristic;
-  //homebridge.registerAccessory('homebridge-radio-player-plus', 'RadioPlayerPlus', RadioPlayerPlusPlugin);
   homebridge.registerAccessory('homebridge-audio-stream', 'AudioStream', AudioStreamPlugin);
 }
 
-//class RadioPlayerPlusPlugin {
 class AudioStreamPlugin {
 
   constructor(log, config) {
@@ -19,12 +15,7 @@ class AudioStreamPlugin {
     this.activeStation = -1;
     // stations here is a array of station information
     this.stations = config.stations;
-    // Don't need this because mpc takes care of this?
-    //this.delay = Number(config.delay) || 100;
-    //this.reconnectAfter = Number(config.reconnectAfter) || 45;
     this.player = new Player(this.log);
-    // Just 'creating' the player with no url associated
-    //this.player = new mpc("");
     this.informationService = new Service.AccessoryInformation();
     this.informationService
       .setCharacteristic(
@@ -40,7 +31,7 @@ class AudioStreamPlugin {
         'AudioStreamer_1.0.0'
       );
 
-    this.switchService = new Service.Switch('Next Audio Stream', 'next-audio-stream');
+    this.switchService = new Service.Switch('Next', 'next-audio-stream');
     this.switchService
       .getCharacteristic(Characteristic.On)
       .on(
@@ -85,15 +76,6 @@ class AudioStreamPlugin {
       const station = this.stations[this.activeStation];
       this.log.info('Starting web radio "' + station.name + '" (' + station.streamUrl + ')');
       this.log.info('with volume ' + station.volume);
-      //this.player.seturl(station.streamUrl, function (stdout) {
-      //  callback(null);
-      //});
-      //this.player.setVolume(station.volume, function () {
-      //  callback(null);
-      //});
-      //this.player.play(function (stdout) {
-      //  callback(null);
-      //});
       this.player.play(station.streamUrl, station.volume);
       this.stationServices[this.activeStation].getCharacteristic(Characteristic.On).updateValue(true);
     }
@@ -106,9 +88,6 @@ class AudioStreamPlugin {
       const station = this.stations[this.activeStation];
       this.log.info('Stopping web radio "' + station.name + '" (' + station.streamUrl + ')');
     }
-    //this.player.stop(function (stdout) {
-    //  callback(null);
-    //});
     this.player.stop();
     for (var n in this.stations) {
       this.stationServices[n].getCharacteristic(Characteristic.On).updateValue(false);
