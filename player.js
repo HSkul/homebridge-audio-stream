@@ -17,14 +17,14 @@ class Player {
       //  return Math.floor(Math.random() * (max - min + 1)) + min;
       //}
       const startStream = function() {
-        this.log('Connecting to ' + streamURL);
+        this.log('Connecting to ', streamURL);
         // Is this where we just clear the url, set volume, set new url, and start playing
         // We just remove any timeouts
         // And then we make sure we log any errors
         var cmdclr = mpccmd + 'clear';
         exec(cmdclr, function (error, stdout, stderr) {
             if(error) {
-                this.log('Clear error: ' + stderr)
+                this.log('Clear error: ', stderr)
             };
             //callback(stdout)
         });
@@ -32,7 +32,7 @@ class Player {
         var cmdadd = mpccmd + 'add ' + streamURL;
         exec(cmdadd, function (error, stdout, stderr) {
             if(error) {
-                this.log('Add error: ' + stderr)
+                this.log('Add error: ', stderr)
             };
             //callback(stdout)
         });
@@ -40,7 +40,7 @@ class Player {
         var cmdvol = mpccmd + 'volume ' + streamvol;
         exec(cmdvol, function (error, stdout, stderr) {
             if(error) {
-                this.log('Volume error: ' + stderr)
+                this.log('Volume error: ', stderr)
             };
             //callback(stdout)
         });
@@ -48,7 +48,7 @@ class Player {
         var cmdply = mpccmd + 'play';
         exec(cmdply, function (error, stdout, stderr) {
             if(error) {
-                this.log('Play error: ' + stderr)
+                this.log('Play error: ', stderr)
             };
             //callback(stdout)
         });
@@ -73,7 +73,7 @@ class Player {
         var cmdstp = mpccmd + 'stop';
         exec(cmdstp, function (error, stdout, stderr) {
             if(error) {
-                this.log('Play error: ' + stderr)
+                this.log('Play error: ', stderr)
             };
             //callback(stdout)
         });
