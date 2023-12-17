@@ -17,7 +17,7 @@ class Player {
       //  return Math.floor(Math.random() * (max - min + 1)) + min;
       //}
       const startStream = function() {
-        this.log('Connecting to ', streamURL);
+        this.log('Connecting to ' + streamURL);
         // Is this where we just clear the url, set volume, set new url, and start playing
         // We just remove any timeouts
         // And then we make sure we log any errors
