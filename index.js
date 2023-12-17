@@ -75,7 +75,7 @@ class AudioStreamPlugin {
     if (this.activeStation != -1) {
       const station = this.stations[this.activeStation];
       this.log.info('Starting web radio "' + station.name + '" (' + station.streamUrl + ')');
-      this.log.info('with volume ' + station.volume);
+      this.log.info('with volume ', station.volume);
       this.player.play(station.streamUrl, station.volume);
       this.stationServices[this.activeStation].getCharacteristic(Characteristic.On).updateValue(true);
     }
