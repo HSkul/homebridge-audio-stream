@@ -24,7 +24,7 @@ class Player {
         var cmdclr = mpccmd + 'clear';
         exec(cmdclr, function (error, stdout, stderr) {
             if(error) {
-                this.log('Clear error: ', stderr)
+                console.log('Clear error: '+ error);
             };
             //callback(stdout)
         });
@@ -32,7 +32,7 @@ class Player {
         var cmdadd = mpccmd + 'add ' + streamURL;
         exec(cmdadd, function (error, stdout, stderr) {
             if(error) {
-                this.log('Add error: ', stderr)
+                console.log('Add error: '+ error);
             };
             //callback(stdout)
         });
@@ -40,7 +40,7 @@ class Player {
         var cmdvol = mpccmd + 'volume ' + streamvol;
         exec(cmdvol, function (error, stdout, stderr) {
             if(error) {
-                this.log('Volume error: ', stderr)
+                console.log('Volume error: '+ error);
             };
             //callback(stdout)
         });
