@@ -48,7 +48,7 @@ class Player {
         var cmdply = mpccmd + 'play';
         exec(cmdply, function (error, stdout, stderr) {
             if(error) {
-                this.log('Play error: ', stderr)
+                console.log('Play error: '+ error);
             };
             //callback(stdout)
         });
@@ -73,7 +73,7 @@ class Player {
         var cmdstp = mpccmd + 'stop';
         exec(cmdstp, function (error, stdout, stderr) {
             if(error) {
-                this.log('Play error: ', stderr)
+                console.log('Play error: '+ error);
             };
             //callback(stdout)
         });
