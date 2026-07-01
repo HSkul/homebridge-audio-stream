@@ -43,23 +43,23 @@ class AudioStreamPlugin {
     // Loop for each of the stations in the array from config
     for (var n in this.stations) {
       const station = this.stations[n];
-      const stationService = new Service.Speaker(station.name, 'audio-stream-' + n);
-      stationService
+      this.stationService = new Service.Speaker(station.name, 'audio-stream-' + n);
+      this.stationService
         .getCharacteristic(Characteristic.Mute)
         .onSet(this.controlStation.bind(this, Number(n))) // start/stop the player
         .onGet(this.isPlaying.bind(this, Number(n)));     // check to see if player is playing
-      stationService
+      this.stationService
         .getCharacteristic(Characteristic.Volume)
 //        .onGet(this.getVolume.bind(this, Number(n)))   // volume of mpc is never set independently, just here for ref>
         .onSet(this.setVolume.bind(this, Number(n)));
-      stationService                                         // Set the initial value of the station from the config
+      this.stationService                                         // Set the initial value of the station from the config
         .getCharacteristic(Characteristic.Volume)
         .updateValue(Number(station.volume));
 
-      this.log.debug('Initilized volume is: '+ stationService.getCharacteristic(Characteristic.Volume).value);
+      this.log.debug('Initilized volume is: '+ this.stationService.getCharacteristic(Characteristic.Volume).value);
       this.log.info('Initializing: "' + station.name + '" (' + station.streamUrl + ')(' + station.volume + ')');
-      this.services.push(stationService);
-      this.stationServices.push(stationService);
+      this.services.push(this.stationService);
+      this.stationServices.push(this.stationService);
     }
   }
 
