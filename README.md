@@ -21,8 +21,8 @@ audio_output {
 #       mixer_index     "0"             # optional
 }
 ```
-The rest of the file can be left unchanged.  Then install the plugin using
-```npm install -g https://github.com/HSkul/homebridge-audio-stream.git```
+The rest of the file can be left unchanged.  Then install the plugin using the following from the Homebridge terminal:
+```npm install -g --unsafe-perm https://github.com/HSkul/homebridge-audio-stream.git```
 
 ## Configuration
 ```"accessories": [
