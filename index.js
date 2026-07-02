@@ -38,25 +38,25 @@ class AudioStreamPlugin {
       .onGet(this.showAlwaysOff.bind(this));
     this.services.push(this.switchService);
 
-    // Setup speakers
+    // Setup Lightbulbs as switches
     this.stationServices = [];                               // array of station services/speaker buttons
     // Loop for each of the stations in the array from config
     for (var n in this.stations) {
       const station = this.stations[n];
-      this.stationService = new Service.Speaker(station.name, 'audio-stream-' + n);
+      this.stationService = new Service.Lightbulb(station.name, 'audio-stream-' + n);
       this.stationService
-        .getCharacteristic(Characteristic.Mute)
+        .getCharacteristic(Characteristic.On)
         .onSet(this.controlStation.bind(this, Number(n))) // start/stop the player
         .onGet(this.isPlaying.bind(this, Number(n)));     // check to see if player is playing
       this.stationService
-        .getCharacteristic(Characteristic.Volume)
+        .getCharacteristic(Characteristic.Brightness)
 //        .onGet(this.getVolume.bind(this, Number(n)))   // volume of mpc is never set independently, just here for ref>
         .onSet(this.setVolume.bind(this, Number(n)));
       this.stationService                                         // Set the initial value of the station from the config
-        .getCharacteristic(Characteristic.Volume)
+        .getCharacteristic(Characteristic.Brightness)
         .updateValue(Number(station.volume));
 
-      this.log.debug('Initilized volume is: '+ this.stationService.getCharacteristic(Characteristic.Volume).value);
+      this.log.debug('Initilized volume is: '+ this.stationService.getCharacteristic(Characteristic.Brightness).value);
       this.log.info('Initializing: "' + station.name + '" (' + station.streamUrl + ')(' + station.volume + ')');
       this.services.push(this.stationService);
       this.stationServices.push(this.stationService);
@@ -71,10 +71,10 @@ class AudioStreamPlugin {
   play() {
     if (this.activeStation >= 0) {   //activeStation is -2 if no station is playing
       const station = this.stations[this.activeStation];
-      const sVol = this.stationServices[this.activeStation].getCharacteristic(Characteristic.Volume).value;
+      const sVol = this.stationServices[this.activeStation].getCharacteristic(Characteristic.Brightness).value;
       this.log.info('Starting web radio "' + station.name + '" (' + station.streamUrl + ') with volume ' + sVol);
       this.player.play(station.streamUrl, sVol);    // start the player
-      this.stationServices[this.activeStation].getCharacteristic(Characteristic.Mute).updateValue(false);
+      this.stationServices[this.activeStation].getCharacteristic(Characteristic.On).updateValue(true);
     }
   }
 
@@ -86,7 +86,7 @@ class AudioStreamPlugin {
     }
     this.player.stop();
     for (var n in this.stations) {
-      this.stationServices[n].getCharacteristic(Characteristic.Mute).updateValue(true);
+      this.stationServices[n].getCharacteristic(Characteristic.On).updateValue(false);
     }
   }
 
@@ -122,8 +122,8 @@ class AudioStreamPlugin {
     return false;
   }
 
-  controlStation(n, mute, callback) {
-    if (!mute) {                              // service is unmuted
+  controlStation(n, on, callback) {
+    if (on) {                                 // service is on
       this.stop();
       this.setActiveStation(n);               // Set the right station
       this.play();                            // Play the selected station
@@ -136,11 +136,11 @@ class AudioStreamPlugin {
   isPlaying(n, callback) {
     if (this.activeStation < 0) {
 
-      return true;
+      return false;
     } else if (this.activeStation == n) {   
-      return !(this.player.isPlaying);        // isPlaying is opposite logic of mute
+      return (this.player.isPlaying);        // isPlaying is opposite logic of mute
     } else {
-      return true;
+      return false;
     }
   }
 
@@ -164,6 +164,6 @@ class AudioStreamPlugin {
       this.player.setVolume(value);            // set the volume of the player
       this.log.debug('Setting the volume of the player to a new value:' + value);
     }
-    this.stationServices[n].getCharacteristic(Characteristic.Volume).updateValue(value);     // update the volume of th>
+    this.stationServices[n].getCharacteristic(Characteristic.Brightness).updateValue(value);     // update the volume of th>
   }
 }
