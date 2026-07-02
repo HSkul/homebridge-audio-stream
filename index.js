@@ -18,8 +18,8 @@ class AudioStreamPlugin {
     this.informationService = new Service.AccessoryInformation();
     this.informationService
       .setCharacteristic(Characteristic.Manufacturer,'Hskul')
-      .setCharacteristic(Characteristic.Model,'v1.2.0')
-      .setCharacteristic(Characteristic.SerialNumber,'AudioStream_1.2.0');
+      .setCharacteristic(Characteristic.Model,'v1.2.1')
+      .setCharacteristic(Characteristic.SerialNumber,'AudioStream_1.2.1');
     this.services = [this.informationService]
 
     // Next station button
