@@ -1,6 +1,6 @@
 {
     "name": "@hskul/homebridge-audio-stream",
-    "version": "1.2.0",
+    "version": "1.2.1",
     "description": "play audio streams and control them over homebridge",
     "main": "index.js",
     "scripts": {
